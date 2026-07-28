@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 const API_BASE_URL = 'http://localhost:1323'
 
 export default {
@@ -52,11 +54,8 @@ export default {
   methods: {
     async fetchStudents() {
       try {
-        const response = await fetch(`${API_BASE_URL}/estudiantes`)
-        if (!response.ok) {
-          throw new Error('No se pudo cargar la lista de estudiantes')
-        }
-        this.students = await response.json()
+        const response = await axios.get(`${API_BASE_URL}/estudiantes`)
+        this.students = response.data
       } catch (error) {
         console.error(error)
         this.students = []
@@ -65,13 +64,8 @@ export default {
     },
     async advanceStudent(id) {
       try {
-        const response = await fetch(`${API_BASE_URL}/estudiantes/${id}/avanzar`, {
-          method: 'POST'
-        })
-        if (!response.ok) {
-          throw new Error('No se pudo avanzar el estudiante')
-        }
-        const updatedStudent = await response.json()
+        const response = await axios.post(`${API_BASE_URL}/estudiantes/${id}/avanzar`)
+        const updatedStudent = response.data
         await this.fetchStudents()
         alert(`Estudiante ${updatedStudent.nombre} avanzado al grado ${updatedStudent.grado}`)
       } catch (error) {

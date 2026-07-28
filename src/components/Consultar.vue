@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 const API_BASE_URL = 'http://localhost:1323'
 
 export default {
@@ -39,13 +41,13 @@ export default {
 
       this.searchAttempted = true
       try {
-        const response = await fetch(`${API_BASE_URL}/estudiantes/${this.searchId}`)
-        if (!response.ok) {
+        const response = await axios.get(`${API_BASE_URL}/estudiantes/${this.searchId}`)
+        this.searchedStudent = response.data
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
           this.searchedStudent = null
           return
         }
-        this.searchedStudent = await response.json()
-      } catch (error) {
         console.error(error)
         this.searchedStudent = null
         alert('No se pudo consultar el estudiante')

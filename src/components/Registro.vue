@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 const API_BASE_URL = 'http://localhost:1323'
 
 export default {
@@ -43,19 +45,13 @@ export default {
       if (this.newStudent.numCuenta !== '') payload.numCuenta = this.newStudent.numCuenta
 
       try {
-        const response = await fetch(`${API_BASE_URL}/estudiantes`, {
-          method: 'POST',
+        const response = await axios.post(`${API_BASE_URL}/estudiantes`, payload, {
           headers: {
             'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
+          }
         })
 
-        if (!response.ok) {
-          throw new Error('No se pudo registrar el estudiante')
-        }
-
-        const createdStudent = await response.json()
+        const createdStudent = response.data
         alert(`Estudiante registrado: ${createdStudent.nombre}`)
         this.newStudent = {
           nombre: '',
