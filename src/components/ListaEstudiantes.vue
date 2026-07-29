@@ -70,7 +70,7 @@ export default {
         alert(`Estudiante ${updatedStudent.nombre} avanzado al grado ${updatedStudent.grado}`)
       } catch (error) {
         console.error(error)
-        alert('No se pudo avanzar el estudiante')
+        alert('No se pudo avanzar el estudiante al siguiente grado')
       }
     }
   }

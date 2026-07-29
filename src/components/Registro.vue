@@ -63,7 +63,7 @@ export default {
         }
       } catch (error) {
         console.error(error)
-        alert('No se pudo registrar el estudiante')
+        alert('No se pudo registrar el estudiante.')
       }
     }
   }
