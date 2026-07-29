@@ -50,7 +50,7 @@ export default {
         }
         console.error(error)
         this.searchedStudent = null
-        alert('No se pudo consultar el estudiante')
+        alert('No se pudo consultar el estudiante por ID')
       }
     }
   }
